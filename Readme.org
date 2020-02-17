@@ -1,0 +1,34 @@
+* Commentary
+Bitcoin donations gratefully accepted: 1ArFina3Mi8UDghjarGqATeBgXRDWrsmzo
+
+org-babel support for evaluating Graph::Easy graph descriptions, and printing the results
+into an org file as ascii or unicode diagrams, or any other format supported by the graph-easy binary.
+
+For information on Graph::Easy see http://bloodgate.com/perl/graph/manual/index.html
+
+This differs from most standard languages in that
+
+ 1) there is no such thing as a "session" in Graph::Easy
+
+ 2) the following extra header arguments are allowed: "outfile", "infmt", "outfmt" & "renderer" 
+
+ 3) you must have the graph-easy perl script installed
+
+* Installation
+
+To make sure you have the most up-to-date version of this library it is best to install 
+using the emacs package system, with the appropriate repository added (e.g https://melpa.org/)
+
+To install without using a package manager:
+
+ - Put the library in a directory in the emacs load path, like ~/.emacs.d/
+ - Customize the `org-babel-load-languages' so that it includes (grapheasy . t) in the list:
+    M-x customize-variable org-babel-load-languages
+
+* Customizable Options
+
+ Below is a list of customizable options:
+
+   - *org-babel-default-outfmt* :
+    Default output format for grapheasy source code blocks.\\
+    default value: =boxart=
