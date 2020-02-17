@@ -1,4 +1,3 @@
-#+OPTIONS: \n:t
 * Commentary
 Bitcoin donations gratefully accepted: 1ArFina3Mi8UDghjarGqATeBgXRDWrsmzo
 
@@ -18,15 +17,15 @@ This differs from most standard languages in that
 You can use the :var header argument to assign values to variables which can be referenced by prefixing
 the variable name with a $ in the grapheasy code. For example.
 
-\#+begin_src grapheasy :var a="foo" :var b="bar"
-[$a]->[$b]
-\#+end_src
+\#+begin_src grapheasy :var a="foo" :var b="bar"{{{NEWLINE}}}
+[$a]->[$b]{{{NEWLINE}}}
+\#+end_src{{{NEWLINE}}}
 
 which expands to:
 
-\#+RESULTS:
-┌─────┐     ┌─────┐
-│ foo │ ──> │ bar │
+\#+RESULTS:{{{NEWLINE}}}
+┌─────┐     ┌─────┐{{{NEWLINE}}}
+│ foo │ ──> │ bar │{{{NEWLINE}}}
 └─────┘     └─────┘
 
 * Installation
