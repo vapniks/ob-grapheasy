@@ -58,6 +58,21 @@
 ;; 2) the following extra header arguments are allowed: "outfile", "infmt", "outfmt" & "renderer" 
 ;;
 ;; 3) you must have the graph-easy perl script installed
+;;
+;; You can use the :var header argument to assign values to variables which can be referenced by prefixing
+;; the variable name with a $ in the grapheasy code. For example.
+;;
+;; #+begin_src grapheasy :var a="foo" :var b="bar"
+;; [$a]->[$b]
+;; #+end_src
+;;
+;; which expands to:
+;;
+;; #+RESULTS:
+;; ┌─────┐     ┌─────┐
+;; │ foo │ ──> │ bar │
+;; └─────┘     └─────┘
+;;
 
 ;;; Installation
 ;; 
