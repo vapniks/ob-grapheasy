@@ -55,7 +55,7 @@
 ;;
 ;; 1) there is no such thing as a "session" in Graph::Easy
 ;;
-;; 2) the following extra header arguments are allowed: "outfile", "infmt", "outfmt" & "renderer" 
+;; 2) the following extra header arguments are allowed: "infmt", "outfmt" & "renderer" 
 ;;
 ;; 3) you must have the graph-easy perl script installed
 ;;
@@ -98,7 +98,7 @@
 
 (defcustom org-babel-default-outfmt "boxart"
   "Default output format for grapheasy source code blocks.
-Can be one of; \"ascii\", \"boxart\", \"html\", \"svg\", \"graphviz\"/\"dot\",
+Can be one of; \"ascii\", \"boxart\" (default), \"html\", \"svg\", \"graphviz\"/\"dot\",
 \"txt\", \"vcg\", \"gdl\", or \"graphml\".
 See the graph-easy manpage for more info.")
 
@@ -127,7 +127,7 @@ See the graph-easy manpage for more info.")
   "Execute a block of Graph::Easy code with org-babel.
 This function is called by `org-babel-execute-src-block'.
 BODY is the grapheasy soure code, and PARAMS is a list of header args & parameters."
-  (let* ((outfile (cdr (assq :outfile params)))
+  (let* ((outfile (cdr (assq :file params)))
 	 (infmt (cdr (assq :infmt params)))
 	 (renderer (cdr (assq :renderer params)))
 	 (outfmt (cdr (assq :outfmt params)))

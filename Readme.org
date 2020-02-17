@@ -10,7 +10,7 @@ This differs from most standard languages in that
 
  1) there is no such thing as a "session" in Graph::Easy
 
- 2) the following extra header arguments are allowed: "outfile", "infmt", "outfmt" & "renderer" 
+ 2) the following extra header arguments are allowed: "infmt", "outfmt" & "renderer" 
 
  3) you must have the graph-easy perl script installed
 
