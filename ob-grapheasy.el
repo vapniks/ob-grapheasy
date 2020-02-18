@@ -121,7 +121,7 @@ See the graph-easy manpage for info."
   :group 'org-babel)
 
 (defvar org-babel-default-header-args:grapheasy
-  '((:results . "output raw") (:exports . "results"))
+  '((:results . "output raw replace drawer") (:exports . "results"))
   "Default arguments to use when evaluating a grapheasy source block.")
 
 (defun org-babel-expand-body:grapheasy (body params)
@@ -164,13 +164,16 @@ BODY is the grapheasy soure code, and PARAMS is a list of header args & paramete
 	 (cmd (or (cdr (assq :cmd params)) "graph-easy"))
 	 (coding-system-for-read 'utf-8) ;use utf-8 with sub-processes
 	 (coding-system-for-write 'utf-8)
-	 (res (org-babel-eval
-	       (concat cmd " "
-		       (when infmt (concat " --from=" infmt))
-		       (concat " --as=" outfmt)
-		       (when renderer (concat " --renderer=" renderer))
-		       (when filep (concat " --output=" (org-babel-process-file-name outfile))))
-	       (org-babel-expand-body:grapheasy body params))))
+	 (res (let ((body2 (org-babel-expand-body:grapheasy body params)))
+		(if (assq :copy params)
+		    body2
+		  (org-babel-eval
+		   (concat cmd " "
+			   (when infmt (concat " --from=" infmt))
+			   (concat " --as=" outfmt)
+			   (when renderer (concat " --renderer=" renderer))
+			   (when filep (concat " --output=" (org-babel-process-file-name outfile))))
+		   body2)))))
     (if (not filep)
 	res
       (if (assq :file params) ;; make sure correct file link is inserted
