@@ -89,18 +89,36 @@
 ;;
 ;; Below is a list of customizable options:
 ;;
-;;  `org-babel-default-outfmt'
+;;  `org-babel-default-outfmt:grapheasy'
 ;;    Default output format for grapheasy source code blocks.
 ;;    default = "boxart"
+;;  `org-babel-default-infmt:grapheasy'
+;;    Default input format for grapheasy source code blocks.
+;;    default = "txt"
+;;  `org-babel-default-renderer:grapheasy'
+;;    Default renderer to use for grapheasy source code blocks.
+;;    default = "dot"
 
 ;;; Code:
 (require 'ob)
 
 (defcustom org-babel-default-outfmt:grapheasy "boxart"
   "Default output format for grapheasy source code blocks.
-Can be one of; \"ascii\", \"boxart\" (default), \"html\", \"svg\", \"graphviz\"/\"dot\",
-\"txt\", \"vcg\", \"gdl\", \"graphml\", \"git\", \"jpg\", \"pdf\", \"png\", \"ps\", or \"ps2\".
-See the graph-easy manpage for more info.")
+See the graph-easy manpage for info."
+  :type 'string
+  :group 'org-babel)
+
+(defcustom org-babel-default-infmt:grapheasy "txt"
+  "Default input format for grapheasy source code blocks.
+See the graph-easy manpage for info."
+  :type 'string
+  :group 'org-babel)
+
+(defcustom org-babel-default-renderer:grapheasy "dot"
+  "Default renderer to use for grapheasy source code blocks.
+See the graph-easy manpage for info."
+  :type 'string
+  :group 'org-babel)
 
 (defvar org-babel-default-header-args:grapheasy
   '((:results . "output raw") (:exports . "results"))
@@ -131,10 +149,12 @@ BODY is the grapheasy soure code, and PARAMS is a list of header args & paramete
 	 (filep (or fileparam
 		    (string-match
 		     "file" (cdr (assq :results params)))))
-	 (infmt (cdr (assq :infmt params)))
-	 (renderer (cdr (assq :renderer params)))
+	 (infmt (or (cdr (assq :infmt params))
+		    org-babel-default-infmt:grapheasy))
 	 (outfmt (or (cdr (assq :outfmt params))
 		     org-babel-default-outfmt:grapheasy))
+	 (renderer (or (cdr (assq :renderer params))
+		       org-babel-default-renderer:grapheasy))
 	 (outfile (if (or (member
 			   outfmt ;; --output option is ignored if one of these formats is specified
 			   '("bmp" "git" "hpgl" "jpg" "pcl" "pdf" "png" "ps" "ps2" "tga" "tif"))
