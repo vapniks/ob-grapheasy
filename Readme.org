@@ -52,4 +52,4 @@ To install without using a package manager:
     default = =txt=
    - *org-babel-default-renderer:grapheasy* :
     Default renderer to use for grapheasy source code blocks.\\
-    default = ==dot=
+    default = =dot=
