@@ -127,21 +127,36 @@ See the graph-easy manpage for more info.")
   "Execute a block of Graph::Easy code with org-babel.
 This function is called by `org-babel-execute-src-block'.
 BODY is the grapheasy soure code, and PARAMS is a list of header args & parameters."
-  (let* ((outfile (cdr (assq :file params)))
+  (let* ((fileparam (assq :file params))
+	 (filep (or fileparam
+		    (string-match
+		     "file" (cdr (assq :results params)))))
 	 (infmt (cdr (assq :infmt params)))
 	 (renderer (cdr (assq :renderer params)))
-	 (outfmt (cdr (assq :outfmt params)))
+	 (outfmt (or (cdr (assq :outfmt params))
+		     org-babel-default-outfmt))
+	 (outfile (if (or (member
+			   outfmt ;; --output option is ignored if one of these formats is specified
+			   '("bmp" "git" "hpgl" "jpg" "pcl" "pdf" "png" "ps" "ps2" "tga" "tif"))
+			  (not (cdr fileparam)))
+		      (concat "graph." outfmt)
+		    (cdr fileparam)))
 	 (cmd (or (cdr (assq :cmd params)) "graph-easy"))
 	 (coding-system-for-read 'utf-8) ;use utf-8 with sub-processes
 	 (coding-system-for-write 'utf-8)
 	 (res (org-babel-eval
 	       (concat cmd " "
 		       (when infmt (concat " --from=" infmt))
-		       (concat " --as=" (or outfmt org-babel-default-outfmt))
+		       (concat " --as=" outfmt)
 		       (when renderer (concat " --renderer=" renderer))
-		       (when outfile (concat " --output=" (org-babel-process-file-name outfile))))
+		       (when filep (concat " --output=" (org-babel-process-file-name outfile))))
 	       (org-babel-expand-body:grapheasy body params))))
-    (unless outfile res)))
+    (if (not filep)
+	res
+      (if (assq :file params) ;; make sure correct file link is inserted
+	  (setf (cdr (assq :file params)) outfile)
+	(nconc params (list (cons :file outfile))))
+      nil)))
 
 (defun org-babel-prep-session:grapheasy (_session _params)
   "Return an error because Graph::Easy does not support sessions."
