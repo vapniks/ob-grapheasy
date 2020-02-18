@@ -44,6 +44,6 @@ To install without using a package manager:
 
  Below is a list of customizable options:
 
-   - *org-babel-default-outfmt* :
+   - *org-babel-default-outfmt:grapheasy* :
     Default output format for grapheasy source code blocks.\\
     default value: =boxart=

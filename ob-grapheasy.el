@@ -96,10 +96,10 @@
 ;;; Code:
 (require 'ob)
 
-(defcustom org-babel-default-outfmt "boxart"
+(defcustom org-babel-default-outfmt:grapheasy "boxart"
   "Default output format for grapheasy source code blocks.
 Can be one of; \"ascii\", \"boxart\" (default), \"html\", \"svg\", \"graphviz\"/\"dot\",
-\"txt\", \"vcg\", \"gdl\", or \"graphml\".
+\"txt\", \"vcg\", \"gdl\", \"graphml\", \"git\", \"jpg\", \"pdf\", \"png\", \"ps\", or \"ps2\".
 See the graph-easy manpage for more info.")
 
 (defvar org-babel-default-header-args:grapheasy
@@ -134,7 +134,7 @@ BODY is the grapheasy soure code, and PARAMS is a list of header args & paramete
 	 (infmt (cdr (assq :infmt params)))
 	 (renderer (cdr (assq :renderer params)))
 	 (outfmt (or (cdr (assq :outfmt params))
-		     org-babel-default-outfmt))
+		     org-babel-default-outfmt:grapheasy))
 	 (outfile (if (or (member
 			   outfmt ;; --output option is ignored if one of these formats is specified
 			   '("bmp" "git" "hpgl" "jpg" "pcl" "pdf" "png" "ps" "ps2" "tga" "tif"))
