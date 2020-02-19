@@ -55,7 +55,7 @@
 ;;
 ;; 1) there is no such thing as a "session" in Graph::Easy
 ;;
-;; 2) the following extra header arguments are allowed: "infmt", "outfmt" & "renderer" 
+;; 2) the following extra header arguments are allowed: "infmt", "outfmt", "renderer" & "copy"
 ;;
 ;; 3) you must have the graph-easy perl script installed
 ;;
@@ -73,6 +73,35 @@
 ;; │ foo │ ──> │ bar │
 ;; └─────┘     └─────┘
 ;;
+;; The :copy header argument has the effect of skipping the evaluation step, but still performing variable substitution.
+;; This enables you to reuse graphs from other code blocks, by referring to them in variable assignments, e.g:
+;;
+;; #+name: simple_network
+;; #+begin_src grapheasy 
+;; [Internet]<->[$modem]<->[$router]<->[$c1],[$c2]
+;; #+end_src
+;;
+;; #+begin_src grapheasy :copy :var net=simple_network(modem="belkin",router="tomato",c1="foo",c2="bar")
+;; My network:
+;; $net
+;; #+end_src
+;;
+;; #+RESULTS:
+;; :results:
+;; My network:
+;; ┌──────────┐      ┌────────┐      ┌────────┐      ┌─────┐
+;; │ Internet │ <──> │ belkin │ <──> │ tomato │ <──> │ bar │
+;; └──────────┘      └────────┘      └────────┘      └─────┘
+;;                                    ∧
+;;                                    │
+;;                                    │
+;;                                    ∨
+;;                                    ┌────────┐
+;;                                    │  foo   │
+;;                                    └────────┘
+;; :end:
+
+
 
 ;;; Installation
 ;; 
