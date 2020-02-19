@@ -33,7 +33,7 @@ which expands to:
 The :copy header argument has the effect of skipping the evaluation step, but still performing variable substitution.
 This enables you to reuse graphs from other code blocks, by referring to them in variable assignments, e.g:
 
-\#+begin_src txt
+#+begin_src txt
 \#+name: simple_network
 \#+begin_src grapheasy 
 [Internet]<->[$modem]<->[$router]<->[$c1],[$c2]
