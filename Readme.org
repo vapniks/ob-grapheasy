@@ -32,6 +32,7 @@ which expands to:
 
 The :copy header argument has the effect of skipping the evaluation step, but still performing variable substitution.
 This enables you to reuse graphs from other code blocks, by referring to them in variable assignments, e.g:
+(see the org-mode manual for more info: https://orgmode.org/manual/Environment-of-a-Code-Block.html)
 
 #+begin_src txt
 \#+name: simple_network
